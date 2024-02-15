@@ -2,6 +2,7 @@ package F28DA_CW1;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import F28DA_CW1.ListWordMap.Entry;
 
 public class ListWordMap implements IWordMap{
     public class Entry{
@@ -24,8 +25,7 @@ public class ListWordMap implements IWordMap{
     }
     LinkedList<Entry> linked_l;
     int size;
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-	public ListWordMap()
+    public ListWordMap()
     {
         linked_l = new LinkedList();
         size = 0;
@@ -33,9 +33,6 @@ public class ListWordMap implements IWordMap{
 
     @Override
     public void addPos(String word, IPosition pos) {
-    	//adds a new position to an entry of the map. 
-    	//It creates the entry if word is not already present in the map.
-    	
        Iterator<Entry> iter = linked_l.iterator();
        int count = 0;
        while(iter.hasNext())
@@ -60,9 +57,6 @@ public class ListWordMap implements IWordMap{
 
     @Override
     public void removeWord(String word) throws WordException {
-    	//removes from the map the entry for word. 
-    	//Throws exception if word is not present in the map.
-    	
         Iterator <Entry>iter = linked_l.iterator();
         int count=0;
         while(iter.hasNext())
@@ -84,10 +78,6 @@ public class ListWordMap implements IWordMap{
 
     @Override
     public void removePos(String word, IPosition pos) throws WordException {
-    	//removes from the map position for word. 
-    	//Throws exception if word is not present in the map 
-    	//or if word is not associated to the given position.
-    	
     	Iterator<Entry> iter = linked_l.iterator();
         int count = 0;
         while(iter.hasNext())
@@ -110,10 +100,6 @@ public class ListWordMap implements IWordMap{
 
     @Override
     public Iterator<String> words() {
-    	// returns an Iterator1over all words in the map. 
-    	//The iteration is over objects of class String.
-
-    	
         LinkedList<String> w_linkedl=new LinkedList<String>();
         Iterator<Entry> iter = linked_l.iterator();
         while(iter.hasNext())
@@ -128,9 +114,6 @@ public class ListWordMap implements IWordMap{
 
     @Override
     public Iterator<IPosition> positions(String word) throws WordException {
-    	//returns an Iterator over all positions of word. 
-    	//The iteration is over objects of class IPosition. 
-    	//Throws exception if word is not present in the map.
     	
     	LinkedList<IPosition> p_linkedl = new LinkedList<IPosition>();
         Iterator<Entry> iter = linked_l.iterator();
@@ -149,7 +132,6 @@ public class ListWordMap implements IWordMap{
 
     @Override
     public int numberOfEntries() {
-    	//returns the number of entries stored in the map.
         return size;
     }
 }

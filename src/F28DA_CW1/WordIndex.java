@@ -44,12 +44,7 @@ public class WordIndex {
 
 			// initialize map
 			IWordMap wordPossMap;
-			
-			//List implementation of a word map
 			wordPossMap = new ListWordMap();
-			
-			// hash table implementation of a word map
-			wordPossMap = new HashWordMap();	
 
 			// reading the content of the command file
 			while(commandReader.hasNextWord()) {
@@ -57,15 +52,11 @@ public class WordIndex {
 				String command = commandReader.nextWord().getWord();
 
 				switch (command) {
-				
 				case "addall":
-					//Adding to the map the words and their positions in each file for all the .txt files 
-					
 					assert(textFilesFolder.isDirectory());
 					File[] listOfFiles = textFilesFolder.listFiles(txtFilenameFilter);
 					Arrays.sort(listOfFiles);
 					for (File textFile : listOfFiles) {
-						@SuppressWarnings("unused")
 						int num_in = 0;		
 						WordTxtReader wordReader = new WordTxtReader(textFile);
 						count++;
@@ -83,7 +74,6 @@ public class WordIndex {
 					break;
 
 				case "add":
-					//Adding to the map the words and their positions in the given file.
 					File textFile = new File(textFilesFolder, commandReader.nextWord().getWord()+".txt");
 					WordTxtReader wordReader = new WordTxtReader(textFile);
 					int no_add = 0;
@@ -101,10 +91,6 @@ public class WordIndex {
 					break;
 
 				case "search":
-					//Searching for a word in the text files that have been indexed.
-					//The output will be in order of most occurrence in a file, 
-					//and will be limited to the number of file given as argument 
-					
 					int nb = Integer.parseInt(commandReader.nextWord().getWord());
 					String word = commandReader.nextWord().getWord();
 					// search for word entry in map
@@ -154,23 +140,20 @@ public class WordIndex {
 							}
 							
 							String pline_num = String.join(", ", line_num.toString());
+							
 							pline_num = pline_num.replace("[", "").replace("]", "");
-							System.out.printf(pline_num, ")\n");
+							System.out.print(pline_num);
+							System.out.print(") \n"); 
 						}	
 							
 					} catch (WordException e) 
 					{
-						System.err.println("Error! Word does not exist");
-
+						
 					}
 					
 					break;
 
 				case "remove":
-					//Removing from the map the positions of words from the given file. 
-					//If a word has no more positions associated with it, we remove it from the map.
-					//the file itself will not be removed from the TextFiles directory.
-					
 					File textFileToRemove = new File(textFilesFolder, commandReader.nextWord().getWord()+".txt");
 					// remove word-positions
 					WordTxtReader txtReader = new WordTxtReader(textFileToRemove);
@@ -197,7 +180,6 @@ public class WordIndex {
 
 				case "overview":
 					// print overview
-					//Printing a summary of the number of indexed words, indexed positions and indexed files.
 					Iterator<String> iterate = wordPossMap.words();
 					int num = 0;
 					

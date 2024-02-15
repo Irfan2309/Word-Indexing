@@ -1,65 +1,87 @@
-package F28DA_CW1;
+package F28DA_Cword1;
+
 import static org.junit.Assert.*;
+
 import org.junit.Test;
 
 public class HashWordMapTest {
 
-
+	// Add your own tests, for example to test the method hashCode from HashWordMap
+	
 	@Test
-	//adding an empty word to the file
-	public void AddEmptyWord() {
+	public void AddBlankword() {
 		IWordMap map = new HashWordMap();
-		String word1 = "";
-		IPosition position1 = new WordPosition("", 0, word1);
-		map.addPos(word1, position1);
+		String w1 = "";
+		IPosition p1 = new WordPosition("", 0, w1);
+		map.addPos(w1, p1);
         assertEquals(map.numberOfEntries(),1);
 	}
-
+	
 	@Test
-	//adding multiple words to the file
-	public void AddWords() {
+	public void add2WordsTest() {
 		 IWordMap map = new HashWordMap();
-		 String word1 = "Syed";
-		 String word2 = "Irfan";
-		 String word3 = "Uddin";
-		 IPosition position1 = new WordPosition("test.txt", 1, word1);
-		 IPosition position2 = new WordPosition("test.txt", 4, word2);
-		 IPosition position3 = new WordPosition("test.txt", 7, word3);
-		 map.addPos(word1, position1);
-		 map.addPos(word2, position2);
-		 map.addPos(word3, position3);
-		 assertEquals(map.numberOfEntries(),3);
+		 String w1 = "lost";
+		 String w2 = "high";
+		 IPosition p1 = new WordPosition("test.txt", 1, w1);
+		 IPosition p2 = new WordPosition("test.txt", 4, w2);
+		 
+		 map.addPos(w1, p1);
+		 map.addPos(w2, p2);
+		 assertEquals(map.numberOfEntries(),2);
 		 
 	}
-
+	
 	@Test
-	//deleting words from the file
-	public void Delete() throws WordException {
+	public void AddRemove() throws WordException {
 		IWordMap map = new HashWordMap();
-		String word1 = "test";
-		IPosition position1 = new WordPosition("test.txt", 1, word1);
-		map.addPos(word1, position1);
-		map.removeWord(word1);
+		String w1 = "Data";
+		IPosition pos = new WordPosition("test.txt", 1, w1);
+		map.addPos(w1, pos);
+		map.removeWord(w1);
 		assertEquals(map.numberOfEntries(),0);
 	}
+	
+	@Test
+	public void TwoAddRemove() throws WordException {
+		IWordMap map = new HashWordMap();
+		String w1 = "Science";
+		String w2 = "Dubai";
+		IPosition p1 = new WordPosition("test.txt", 1, w1);
+		IPosition p2 = new WordPosition("test.txt", 4, w2);
 
-
-
+		map.addPos(w1, p1);
+		map.addPos(w1, p2);
+		map.removeWord(w1);
+		map.removeWord(w2);
+		assertEquals(map.numberOfEntries(),3);
+	}
+	
+	@Test
+	public void AddRemovePos() throws WordException {
+		IWordMap map = new HashWordMap();
+		String w1 = "List";
+		IPosition pos = new WordPosition("test.txt", 1, w1);
+		map.addPos(w1, pos);
+		map.removePos(w1,pos);
+		assertEquals(map.numberOfEntries(),0);
+	}
+	
+	
 	@Test
 	public void signatureTest() {
         try {
-            IWordMap map = new HashWordMap(0.5f);
-            String word1 = "test1";
-            String word2 = "test2";
-            IPosition pos1 = new WordPosition("test.txt", 4, word1);
-            IPosition pos2 = new WordPosition("test.txt", 5, word2);      
-            map.addPos(word1, pos1);
-            map.addPos(word2, pos2);
+            IWordMap map = new HashWordMap();
+            String w1 = "test1";
+            String w2 = "test2";
+            IPosition p1 = new WordPosition("test.txt", 4, w1);
+            IPosition p2 = new WordPosition("test.txt", 5, w2);      
+            map.addPos(w1, p1);
+            map.addPos(w2, p2);
             map.words();
-            map.positions(word1);
+            map.positions(w1);
             map.numberOfEntries();
-            map.removePos(word1, pos1);
-            map.removeWord(word2);
+            map.removePos(w1, p1);
+            map.removeWord(w2);
         } catch (Exception e) {
             fail("Signature of solution does not conform");
         }
